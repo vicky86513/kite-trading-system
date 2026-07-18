@@ -1,0 +1,41 @@
+# Environment
+.env
+.env.local
+.venv/
+venv/
+env/
+
+# IDE
+.vscode/
+.idea/
+*.swp
+*.swo
+*~
+.DS_Store
+
+# Python
+__pycache__/
+*.py[cod]
+*$py.class
+*.egg-info/
+dist/
+build/
+
+# Data and runtime output
+/data/
+Excel/
+Logs/
+*.xlsx
+*.json
+*.html
+
+# Cache
+.cache/
+*.cache
+kite_session.json
+
+# OS
+Thumbs.db
+
+# Logs
+*.log
