@@ -27,7 +27,7 @@ Excel/
 Logs/
 *.xlsx
 *.json
-*.html
+# *.html
 
 # Cache
 .cache/

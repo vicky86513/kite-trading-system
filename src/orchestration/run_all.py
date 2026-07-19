@@ -8,6 +8,7 @@ Run:
     python -m src.orchestration.run_all
 """
 
+import importlib.util
 import subprocess
 import signal
 import time
@@ -36,6 +37,14 @@ processes = []
 def start_tracker(name, module):
     """Start a tracker subprocess."""
     log.info(f"🚀 Starting {name} tracker...")
+
+    if importlib.util.find_spec("kiteconnect") is None:
+        log.error(
+            f"✗ Cannot start {name}: missing dependency 'kiteconnect'. "
+            "Install requirements before deployment."
+        )
+        return None
+
     try:
         proc = subprocess.Popen(
             [sys.executable, "-m", module],
