@@ -10,7 +10,7 @@ import threading
 
 from kiteconnect import KiteTicker
 
-from src.shared.auth import get_kite_session, API_KEY
+from src.shared.auth_docker import get_kite_session, API_KEY
 from src.shared.price_book import PriceBookWriter
 from src.shared.instruments import get_nearest_future
 from src.shared.logger import get_logger

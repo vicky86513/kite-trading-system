@@ -1,0 +1,59 @@
+services:
+  trading-system:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: nifty-trading-system
+    
+    environment:
+      - KITE_API_KEY=${KITE_API_KEY}
+      - KITE_API_SECRET=${KITE_API_SECRET}
+      - KITE_REQUEST_TOKEN=${KITE_REQUEST_TOKEN}
+      - DEBUG=${DEBUG:-false}
+      - TZ=Asia/Kolkata
+    
+    volumes:
+      - ./data:/app/data
+      - ./web:/app/web
+      - trading_cache:/app/data/cache
+    
+    ports:
+      - "8000:8000"  # Direct access to Python http.server
+    
+    deploy:
+      resources:
+        limits:
+          cpus: '2.0'
+          memory: 2G
+        reservations:
+          cpus: '1.0'
+          memory: 1G
+    
+    restart: unless-stopped
+    
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "100m"
+        max-file: "10"
+    
+    healthcheck:
+      test: ["CMD", "ps", "aux"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+      start_period: 30s
+    
+    networks:
+      - trading-network
+    
+    stdin_open: true
+    tty: true
+
+volumes:
+  trading_cache:
+    driver: local
+
+networks:
+  trading-network:
+    driver: bridge
